@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<!-- saved from url=(0089)https://e.famnit.upr.si/pluginfile.php/699848/mod_resource/content/4/towers-solution.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+        <title>Towers</title>
+        <style>
+            .position {
+                width: 320px;
+                height: 320px;
+                border: 1px solid black;
+                text-align: center;
+                vertical-align: bottom;
+                border: none;
+                border-bottom: 5px solid black;
+            }
+            .brick {
+                background-color: blue;
+                width: 300px;
+                height: 40px;
+            }
+            #brick1 { width: 40px; margin: 1px 140px; }
+            #brick2 { width: 80px; margin: 1px 120px; }
+            #brick3 { width: 120px; margin: 1px 100px;}
+            #brick4 { width: 160px; margin: 1px 80px; }
+            #brick5 { width: 200px; margin: 1px 60px; }
+            #brick6 { width: 240px; margin: 1px 40px; }
+            #brick7 { width: 280px; margin: 1px 20px; }
+        </style>
+        <script>
+     // Declare a variable to keep track of the number of the dragged brick
+let draggedBrickNumber = 0;
+
+// Define a function that gets called when a brick is dragged
+function brickDrag(event, brickNumber) {
+    // Update the draggedBrickNumber with the number of the dragged brick
+    draggedBrickNumber = brickNumber;
+}
+
+// Define a function that gets called when a brick is dropped
+function brickDrop(event, positionNumber) {
+    
+    // Get the HTML element of the dragged brick
+    const draggedBrick = document.getElementById("brick" + draggedBrickNumber);
+    // Get the HTML element of the target position where the brick is dropped
+    const targetPosition = document.getElementById("position" + positionNumber);
+
+    // If the target position is empty, append the dragged brick to it
+    if (targetPosition.childElementCount === 0) {
+        targetPosition.appendChild(draggedBrick);
+    } else {
+        // Get the number of the top brick in the target position
+        const topBrickNumber = parseInt(targetPosition.firstElementChild.id.slice(5));
+        // Check if the dragged brick number is smaller than the top brick number
+        if (draggedBrickNumber < topBrickNumber) {
+            // Insert the dragged brick before the top brick
+            targetPosition.insertBefore(draggedBrick, targetPosition.firstElementChild);
+        }
+    }
+}
+
+// Define a function that gets called when a brick is being dragged over a target
+function brickOver(event) {
+    // Prevent the default behavior of the event (usually prevents some unwanted action)
+    event.preventDefault();
+}
+
+
+
+        </script>
+    </head>
+    <body>
+        <table>
+            <tbody><tr>
+                <td id="position1" class="position" ondragover="brickOver(event)" ondrop="brickDrop(event, 1)">
+                    <div id="brick1" class="brick" draggable="true" ondragstart="brickDrag(event, 1)"></div>
+                    <div id="brick2" class="brick" draggable="true" ondragstart="brickDrag(event, 2)"></div>
+                    <div id="brick3" class="brick" draggable="true" ondragstart="brickDrag(event, 3)"></div>
+                    <div id="brick4" class="brick" draggable="true" ondragstart="brickDrag(event, 4)"></div>
+                    <div id="brick5" class="brick" draggable="true" ondragstart="brickDrag(event, 5)"></div>
+                    <div id="brick6" class="brick" draggable="true" ondragstart="brickDrag(event, 6)"></div>
+                    <div id="brick7" class="brick" draggable="true" ondragstart="brickDrag(event, 7)"></div>
+                </td>
+                <td id="position2" class="position" ondragover="brickOver(event)" ondrop="brickDrop(event, 2)"></td>
+                <td id="position3" class="position" ondragover="brickOver(event)" ondrop="brickDrop(event, 3)"></td>
+            </tr>
+        </tbody></table>
+    
+</body></html>
